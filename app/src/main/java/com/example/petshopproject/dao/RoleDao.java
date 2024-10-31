@@ -18,6 +18,8 @@ public interface RoleDao {
     @Query("SELECT * FROM Role WHERE roleId = :roleId")
     Role getRoleById(String roleId);
 
+    @Query("SELECT * FROM User u JOIN Role r ON u.roleId = r.roleId WHERE u.userId = :userId")
+    Role getRoleByUserId(String userId);
     @Insert
     void insert(Role role);
 

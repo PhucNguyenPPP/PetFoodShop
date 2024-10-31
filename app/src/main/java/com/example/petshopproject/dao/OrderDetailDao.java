@@ -15,6 +15,9 @@ public interface OrderDetailDao {
     @Query("SELECT * FROM OrderDetail")
     List<OrderDetail> getAll();
 
+    @Query("SELECT * FROM OrderDetail WHERE orderId = :orderId")
+    List<OrderDetail>  getOrderDetailsByOrderId(int orderId);
+
     @Insert
     void insert(OrderDetail orderDetail);
 
