@@ -42,7 +42,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
+        Intent intent1 = getIntent();
+        Double total = intent1.getDoubleExtra("price",0);
         btnConfirmAddress = (Button) findViewById(R.id.btnConfirmAddress);
         btnConfirmAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +51,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Intent intent = new Intent(MapsActivity.this, CheckOutActivity.class);
                 intent.putExtra("Address", address);
                 intent.putExtra("Distance", String.valueOf(distanceInKm));
+                intent.putExtra("price", total);
                 startActivity(intent);
             }
         });

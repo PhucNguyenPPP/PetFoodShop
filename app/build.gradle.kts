@@ -37,6 +37,12 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+
+    implementation(fileTree(mapOf(
+        "dir" to "D:\\prm\\zalopay-zpdk-main\\lib",
+        "include" to listOf("*.aar", "*.jar"),
+        "exclude" to listOf("")
+    )))
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -47,4 +53,8 @@ dependencies {
     implementation("com.google.android.gms:play-services-maps:17.0.1")
     implementation ("com.google.android.gms:play-services-location:18.0.0")
     implementation ("com.google.android.gms:play-services-places:17.0.0")
+    implementation("com.squareup.okhttp3:okhttp:4.6.0")
+    implementation("commons-codec:commons-codec:1.14")
+
+
 }
