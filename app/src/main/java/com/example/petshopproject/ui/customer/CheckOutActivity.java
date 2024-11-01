@@ -151,9 +151,8 @@ public class CheckOutActivity extends AppCompatActivity {
                                                     })
                                                     .setNegativeButton("Cancel", null).show();
                                         }
-
                                     });
-
+                                    AddDbOrderZalopay();
                                 }
 
                                 @Override
@@ -222,6 +221,27 @@ public class CheckOutActivity extends AppCompatActivity {
             Random random = new Random();
             String orderNumber = "O" + String.valueOf(random.nextInt());
             Order order = new Order(orderId, orderNumber, (float) total, (float) shipFee, address, "Unpaid", getCurrentUserId(), null); //tại Phúc để non null nên t sợ lỗi
+            mDb.orderDao().insert(order);
+            List<Cart> carts = mDb.cartDao().getCartByUser(getCurrentUserId());
+            for (Cart cart: carts) {
+                String orderDetailId = UUID.randomUUID().toString();
+                Food food = mDb.foodDao().getFoodById(cart.getFoodId());
+                OrderDetail orderDetail = new OrderDetail(orderDetailId, orderId,cart.getFoodId(),cart.getAmount(),food.getPrice()*cart.getAmount());
+                mDb.orderDetailDao().insert(orderDetail);
+                food.setAmountInStock(food.getAmountInStock()-cart.getAmount());
+                mDb.foodDao().update(food);
+                mDb.cartDao().delete(cart);
+            }
+        });
+
+    }
+
+    private void AddDbOrderZalopay() {
+        AppExecutors.getInstance().getDiskIO().execute(() -> {
+            String orderId = UUID.randomUUID().toString();
+            Random random = new Random();
+            String orderNumber = "O" + String.valueOf(random.nextInt());
+            Order order = new Order(orderId, orderNumber, (float) total, (float) shipFee, address, "Paid", getCurrentUserId(), null); //tại Phúc để non null nên t sợ lỗi
             mDb.orderDao().insert(order);
             List<Cart> carts = mDb.cartDao().getCartByUser(getCurrentUserId());
             for (Cart cart: carts) {

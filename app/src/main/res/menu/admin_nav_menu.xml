@@ -8,5 +8,8 @@
     <item
         android:id="@+id/navigation_food_admin"
         android:title="Food" />
+    <item
+        android:id="@+id/sign_out_btn"
+        android:title="Sign Out" />
 
 </menu>

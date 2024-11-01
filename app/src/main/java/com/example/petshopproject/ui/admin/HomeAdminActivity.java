@@ -23,6 +23,8 @@ import com.example.petshopproject.adapter.HomeAdminAdapter;
 import com.example.petshopproject.adapter.SessionManager;
 import com.example.petshopproject.model.Order;
 import com.example.petshopproject.ui.Order.OrderDetailActivity;
+import com.example.petshopproject.ui.auth.SignInActivity;
+import com.example.petshopproject.ui.customer.HomeCustomerActivity;
 import com.example.petshopproject.ui.customer.OrderCustomerActivity;
 import com.example.petshopproject.ui.shipper.HomeShipperActivity;
 
@@ -85,6 +87,12 @@ public class HomeAdminActivity extends AppCompatActivity {
 
         } else if (item.getItemId() == R.id.navigation_food_admin){
             Intent intent = new Intent(HomeAdminActivity.this, FoodAdminActivity.class);
+            startActivity(intent);
+        } else if (item.getItemId() == R.id.sign_out_btn) {
+            SessionManager sessionManagement = new SessionManager(HomeAdminActivity.this);
+            sessionManagement.logout();
+            Intent intent = new Intent(HomeAdminActivity.this, SignInActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);

@@ -94,6 +94,12 @@ public class OrderCustomerActivity extends AppCompatActivity {
         } else if (item.getItemId() == R.id.navigation_cart){
             Intent intent = new Intent(OrderCustomerActivity.this, CartCustomerActivity.class);
             startActivity(intent);
+        } else if (item.getItemId() == R.id.sign_out_btn) {
+            SessionManager sessionManagement = new SessionManager(OrderCustomerActivity.this);
+            sessionManagement.logout();
+            Intent intent = new Intent(OrderCustomerActivity.this, SignInActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

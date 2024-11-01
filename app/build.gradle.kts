@@ -43,6 +43,11 @@ dependencies {
         "include" to listOf("*.aar", "*.jar"),
         "exclude" to listOf("")
     )))
+    implementation(fileTree(mapOf(
+        "dir" to "C:\\Users\\ASUS\\Desktop\\zalosdk",
+        "include" to listOf("*.aar", "*.jar"),
+        "exclude" to listOf("")
+    )))
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
