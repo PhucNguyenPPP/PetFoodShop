@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.room.Room;
@@ -59,6 +60,8 @@ public class HomeShipperAdapter extends BaseAdapter {
         TextView tvOrderAddress;
         TextView tvOrderStatus;
         TextView tvCustomerName;
+        TextView tvShipperName;
+        Button btnReceive;
     }
 
     @SuppressLint("SetTextI18n")
@@ -77,6 +80,8 @@ public class HomeShipperAdapter extends BaseAdapter {
             holder.tvOrderStatus = (TextView) view.findViewById(R.id.tvOrderStatus2);
             holder.tvOrderShippingPrice = (TextView) view.findViewById(R.id.tvOrderShippingPrice2);
             holder.tvCustomerName = (TextView) view.findViewById(R.id.txtCustomerName2);
+            holder.tvShipperName = (TextView) view.findViewById(R.id.txtShipperName);
+            holder.btnReceive = (Button) view.findViewById(R.id.btnReceive);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
@@ -89,14 +94,20 @@ public class HomeShipperAdapter extends BaseAdapter {
         holder.tvOrderTotal.setText((int)order.getTotalPrice() + " vnđ");
         holder.tvOrderStatus.setText(order.getStatus());
         holder.tvOrderShippingPrice.setText((int) order.getShippingFee() + " vnđ");
+        holder.tvShipperName.setText("Loading...");
         holder.tvCustomerName.setText("Loading...");
 
         AppExecutors.getInstance().getDiskIO().execute(() -> {
             UserDao userDao = mDb.userDao();
+            String shipperName = userDao.getFullNameByUserId(order.getShipperId());
             String customerName = userDao.getFullNameByUserId(order.getCustomerId());
 
             ((Activity) context).runOnUiThread(() -> {
+                holder.tvShipperName.setText(shipperName);
                 holder.tvCustomerName.setText(customerName);
+                if(shipperName != null){
+                    holder.btnReceive.setEnabled(false);
+                }
             });
         });
         return view;

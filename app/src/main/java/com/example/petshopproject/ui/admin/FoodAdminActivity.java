@@ -30,6 +30,8 @@ import com.example.petshopproject.adapter.FoodManagementAdapter;
 import com.example.petshopproject.adapter.SessionManager;
 import com.example.petshopproject.model.Food;
 import com.example.petshopproject.model.FoodPet;
+import com.example.petshopproject.ui.auth.SignInActivity;
+import com.example.petshopproject.ui.customer.HomeCustomerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +88,12 @@ public class FoodAdminActivity extends AppCompatActivity {
             startActivity(intent);
         } else if (item.getItemId() == R.id.navigation_food_admin) {
 
+        } else if (item.getItemId() == R.id.sign_out_btn) {
+            SessionManager sessionManagement = new SessionManager(FoodAdminActivity.this);
+            sessionManagement.logout();
+            Intent intent = new Intent(FoodAdminActivity.this, SignInActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

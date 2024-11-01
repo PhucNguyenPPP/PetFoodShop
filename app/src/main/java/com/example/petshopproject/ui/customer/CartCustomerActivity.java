@@ -23,6 +23,7 @@ import com.example.petshopproject.adapter.FoodCustomerAdapter;
 import com.example.petshopproject.adapter.SessionManager;
 import com.example.petshopproject.model.Cart;
 import com.example.petshopproject.model.Food;
+import com.example.petshopproject.ui.auth.SignInActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -150,6 +151,12 @@ public class CartCustomerActivity extends AppCompatActivity {
             startActivity(intent);
         } else if (item.getItemId() == R.id.navigation_cart) {
 
+        } else if (item.getItemId() == R.id.sign_out_btn) {
+            SessionManager sessionManagement = new SessionManager(CartCustomerActivity.this);
+            sessionManagement.logout();
+            Intent intent = new Intent(CartCustomerActivity.this, SignInActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

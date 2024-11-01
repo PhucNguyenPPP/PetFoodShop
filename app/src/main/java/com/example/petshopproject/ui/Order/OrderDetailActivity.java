@@ -51,10 +51,9 @@ public class OrderDetailActivity extends AppCompatActivity {
         orderDetail = new ArrayList<>();
 
         String orderId = getIntent().getStringExtra("ORDER_ID");
-        int orderId2 = Integer.parseInt(orderId);
 
         //lvFood.setAdapter(adapter);
-        GetOrderDetail(orderId2);
+        GetOrderDetail(orderId);
         //adapter = new OrderDetailAdapter(this, R.layout.row_order_detail, foodList, orderDetail, orderId);
         //lvFood = (ListView) findViewById(R.id.lvFood);
 
@@ -62,12 +61,12 @@ public class OrderDetailActivity extends AppCompatActivity {
 
     }
 
-    private void GetOrderDetail(int orderId) {
+    private void GetOrderDetail(String orderId) {
         AppExecutors.getInstance().getDiskIO().execute(new Runnable() {
             @Override
             public void run() {
                 orderDetail = mDb.orderDetailDao().getOrderDetailsByOrderId(orderId); // Phương thức lấy OrderDetail
-                Order order = mDb.orderDao().getOrderById(String.valueOf(orderId));
+                Order order = mDb.orderDao().getOrderById(orderId);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

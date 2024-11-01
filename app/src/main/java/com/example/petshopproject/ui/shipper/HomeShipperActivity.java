@@ -28,6 +28,7 @@ import com.example.petshopproject.model.Food;
 import com.example.petshopproject.model.Order;
 import com.example.petshopproject.model.OrderDetail;
 import com.example.petshopproject.ui.Order.OrderDetailActivity;
+import com.example.petshopproject.ui.auth.SignInActivity;
 import com.example.petshopproject.ui.customer.CartCustomerActivity;
 import com.example.petshopproject.ui.customer.HomeCustomerActivity;
 import com.example.petshopproject.ui.customer.OrderCustomerActivity;
@@ -94,6 +95,12 @@ public class HomeShipperActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         if(item.getItemId() == R.id.navigation_home_shipper){
 
+        } else if (item.getItemId() == R.id.sign_out_btn) {
+            SessionManager sessionManagement = new SessionManager(HomeShipperActivity.this);
+            sessionManagement.logout();
+            Intent intent = new Intent(HomeShipperActivity.this, SignInActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -109,17 +116,12 @@ public class HomeShipperActivity extends AppCompatActivity {
                     return;
                 }
                 //getCurrentUserId();
-                List<Order> order1 = new ArrayList<>();
-                for(int i = 0; i< orders.size(); i++){
-                    if(orders.get(i).getShipperId().equals(getCurrentUserId())){
-                        order1.add(orders.get(i));
-                    }
-                }
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        orderArray.addAll(order1);
-                        if(order1.stream().count() == 0)
+                        orderArray.addAll(orders);
+                        if(orders.stream().count() == 0)
                             noti.setText("Bạn chưa có đơn hàng nào!");
                         adapter.notifyDataSetChanged();
                     }
