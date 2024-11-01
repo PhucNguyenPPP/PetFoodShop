@@ -23,4 +23,10 @@ public interface CartDao {
 
     @Delete
     void delete(Cart cart);
+    @Query("SELECT * FROM Cart WHERE foodId = :foodId AND userId = :userId")
+    Cart getCartByFoodAndUser(String foodId, String userId);
+    @Query("SELECT * FROM Cart WHERE userId = :userId")
+    List<Cart> getCartByUser(String userId);
+    @Query("SELECT * FROM Cart WHERE cartId = :cartId")
+    List<Cart> getCartByCartId(String cartId);
 }

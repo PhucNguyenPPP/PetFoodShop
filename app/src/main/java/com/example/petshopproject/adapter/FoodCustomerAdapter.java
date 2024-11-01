@@ -3,6 +3,7 @@ package com.example.petshopproject.adapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.database.Cursor;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +12,13 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.room.Room;
 
 import com.bumptech.glide.Glide;
 import com.example.petshopproject.R;
+import com.example.petshopproject.model.Cart;
 import com.example.petshopproject.model.Food;
 import com.example.petshopproject.model.FoodPet;
 import com.example.petshopproject.model.Pet;
@@ -27,6 +30,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class FoodCustomerAdapter extends BaseAdapter {
 
@@ -115,6 +119,12 @@ public class FoodCustomerAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 // viet code de add to cart
+                SessionManager sessionManager = new SessionManager(context);
+                String userId = sessionManager.getUserId();
+                String foodId = food.getFoodId();
+                int availableAmount = food.getAmountInStock();
+                context.AddToCart(foodId,userId,availableAmount);
+
             }
         });
 

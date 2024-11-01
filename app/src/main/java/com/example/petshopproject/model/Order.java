@@ -51,14 +51,14 @@ public class Order {
     @ColumnInfo(name = "customerId")
     private String customerId;
 
-    @NonNull
+
     @ColumnInfo(name = "shipperId")
     private String shipperId;
 
     public Order() {
     }
 
-    public Order(@NonNull String orderId, @NonNull String orderNumber, float totalPrice, float shippingFee, @NonNull String address, @NonNull String status, @NonNull String customerId, @NonNull String shipperId) {
+    public Order(@NonNull String orderId, @NonNull String orderNumber, float totalPrice, float shippingFee, @NonNull String address, @NonNull String status, @NonNull String customerId,  String shipperId) {
         this.orderId = orderId;
         this.orderNumber = orderNumber;
         this.totalPrice = totalPrice;
@@ -135,7 +135,7 @@ public class Order {
         return shipperId;
     }
 
-    public void setShipperId(@NonNull String shipperId) {
+    public void setShipperId( String shipperId) {
         this.shipperId = shipperId;
     }
 }

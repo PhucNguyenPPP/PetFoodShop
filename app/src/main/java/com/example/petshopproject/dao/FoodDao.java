@@ -1,5 +1,6 @@
 package com.example.petshopproject.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -26,4 +27,6 @@ public interface FoodDao {
 
     @Query("UPDATE Food SET status = 0 WHERE foodId = :foodId")
     void delete(String foodId);
+    @Query("SELECT * FROM Food WHERE foodId = :foodId")
+    LiveData<Food> getFoodByIdLiveData(String foodId);
 }

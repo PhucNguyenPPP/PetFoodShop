@@ -100,25 +100,22 @@ public class SignUpActivity extends AppCompatActivity {
                         boolean userExists = mDb.userDao().userExist(userName);
                         if (userExists) {
                             runOnUiThread(() -> textError.setText("Username already exists"));
-                            return;
+
                         }
 
                         boolean phoneExists = mDb.userDao().phoneExist(phone);
                         if (phoneExists) {
                             runOnUiThread(() -> textError.setText("Phone already exists"));
-                            return;
                         }
 
                         boolean emailExists = mDb.userDao().emailExist(email);
                         if (emailExists) {
                             runOnUiThread(() -> textError.setText("Email already exists"));
-                            return;
                         }
 
                         Role customerRole = mDb.roleDao().getCustomerRole();
                         if(customerRole == null){
                             runOnUiThread(() -> textError.setText("Customer role is null"));
-                            return;
                         }
                             User user = new User(UUID.randomUUID().toString(),
                                     userName,
