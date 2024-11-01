@@ -21,6 +21,9 @@ public interface UserDao {
     @Query("SELECT * FROM user WHERE userName = :userName")
     User getUserByUserName(String userName);
 
+    @Query("SELECT fullName FROM user WHERE userId = :userId")
+    String getFullNameByUserId(String userId);
+
     @Insert
     void insert(User user);
 

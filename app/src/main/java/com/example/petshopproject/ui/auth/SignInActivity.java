@@ -50,7 +50,6 @@ public class SignInActivity extends AppCompatActivity {
         mDb = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "PetShopDb")
                 .build();
-
         // Mới lấy project này về thì check trong db bảng role vs pet có data chưa,
         // nếu chưa bỏ comment đoạn code này rồi run project 1 lần là dc
         // sau đó comment dòng code này lại
